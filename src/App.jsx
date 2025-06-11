@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { AnimatePresence } from 'framer-motion';
 import Layout from './Layout';
-import { HomePage, DashboardPage, PlanTripPage, ExplorePage, BudgetPage, BookingsPage, DestinationDetailsPage, NotFoundPage } from '@/components/pages';
-import 'react-toastify/dist/ReactToastify.css';
+import { HomePage, DashboardPage, PlanTripPage, ExplorePage, BudgetPage, BookingsPage, DestinationDetailsPage, NotFoundPage } from '@/components/pages'
+import 'react-toastify/dist/ReactToastify.css'
 
 // Error Boundary to catch object rendering errors
 class ErrorBoundary extends React.Component {

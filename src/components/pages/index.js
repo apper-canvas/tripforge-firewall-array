@@ -9,3 +9,4 @@ export { default as ExplorePage } from './ExplorePage';
 export { default as BudgetPage } from './BudgetPage';
 export { default as BookingsPage } from './BookingsPage';
 export { default as DestinationDetailsPage } from './DestinationDetailsPage';
+export { default as NotFoundPage } from './NotFoundPage';
