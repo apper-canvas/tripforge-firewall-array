@@ -4,26 +4,25 @@ import { motion } from 'framer-motion';
 import ApperIcon from './components/ApperIcon';
 import { routeArray } from './config/routes';
 
-const Layout = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-const location = useLocation();
-  
-  // Defensive rendering - extract only needed properties from location object
-  // Ensure all values are primitive strings to prevent React child rendering errors
-  const currentPath = String(location?.pathname || '/');
-  const locationSearch = String(location?.search || '');
-  const locationHash = String(location?.hash || '');
-  
-  // Safe location state for any debugging/display needs
-  const safeLocationDisplay = location ? {
-    pathname: String(location.pathname || '/'),
-    search: String(location.search || ''),
-    hash: String(location.hash || ''),
-    key: String(location.key || '')
-  } : null;
-
-  const sidebarItems = routeArray.filter(route => route.id !== 'home');
-
+export default function Layout() {
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const location = useLocation();
+    
+    // Safely extract string values from location object to prevent rendering errors
+    const currentPath = location?.pathname || '/';
+    const locationSearch = location?.search || '';
+    const locationHash = location?.hash || '';
+    
+    // Safe location display - ensure we only render strings
+    const safeLocationDisplay = typeof currentPath === 'string' ? currentPath : '/';
+    
+    const sidebarItems = routeArray
+        .filter(route => route.id !== 'home')
+        .map(route => ({
+            ...route,
+            isActive: currentPath === route.path
+        }));
   return (
     <div className="h-screen flex flex-col overflow-hidden">
       {/* Header */}
@@ -151,7 +150,5 @@ const location = useLocation();
         </div>
       </div>
     </div>
-  );
-};
-
-export default Layout;
+);
+}
