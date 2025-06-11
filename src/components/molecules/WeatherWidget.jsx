@@ -1,12 +1,56 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ApperIcon from '@/components/ApperIcon';
-
 const WeatherWidget = ({ 
-  weather, 
-  location, 
+  cityName, 
   className = '' 
 }) => {
-  // Handle missing weather data gracefully
+  const [weather, setWeather] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchWeather = async () => {
+      if (!cityName) return;
+      
+      setLoading(true);
+      setError(null);
+      
+      try {
+        const { default: weatherService } = await import('@/services/api/weatherService');
+        const weatherData = await weatherService.getWeatherByCity(cityName);
+        setWeather(weatherData);
+      } catch (err) {
+        console.error('Failed to fetch weather:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchWeather();
+  }, [cityName]);
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className={`flex items-center gap-2 text-gray-500 ${className}`}>
+        <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-300 border-t-gray-600"></div>
+        <span className="text-sm">Loading weather...</span>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className={`flex items-center gap-2 text-gray-500 ${className}`}>
+        <ApperIcon name="cloud" className="w-4 h-4" />
+        <span className="text-sm">Weather unavailable</span>
+      </div>
+    );
+  }
+
+  // No weather data
   if (!weather) {
     return (
       <div className={`flex items-center gap-2 text-gray-500 ${className}`}>

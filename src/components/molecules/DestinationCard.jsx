@@ -49,7 +49,7 @@ const DestinationCard = ({ destination, isSaved, onToggleSave }) => {
           </IconLabel>
         </div>
         
-        <WeatherWidget cityName={destination.name} />
+<WeatherWidget cityName={destination.city} />
         
         <div className="pt-4 border-t border-surface-100 mt-4">
           <div className="flex space-x-2">
