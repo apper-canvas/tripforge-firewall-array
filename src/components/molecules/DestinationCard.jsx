@@ -4,7 +4,7 @@ import ApperIcon from '@/components/ApperIcon';
 import Button from '@/components/atoms/Button';
 import LinkButton from '@/components/atoms/LinkButton';
 import IconLabel from '@/components/atoms/IconLabel';
-
+import WeatherWidget from '@/components/molecules/WeatherWidget';
 const DestinationCard = ({ destination, isSaved, onToggleSave }) => {
   return (
     <motion.div
@@ -44,10 +44,12 @@ const DestinationCard = ({ destination, isSaved, onToggleSave }) => {
             {destination.rating} • {destination.reviews} reviews
           </IconLabel>
           
-          <IconLabel icon="MapPin" className="text-surface-500" textClassName="text-sm text-surface-600">
+<IconLabel icon="MapPin" className="text-surface-500" textClassName="text-sm text-surface-600">
             {destination.attractions?.length || 0} attractions
           </IconLabel>
         </div>
+        
+        <WeatherWidget cityName={destination.name} />
         
         <div className="pt-4 border-t border-surface-100 mt-4">
           <div className="flex space-x-2">
