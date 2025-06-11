@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { toast } from 'react-hot-toast';
-import ApperIcon from '@/components/ApperIcon';
-import Button from '@/components/atoms/Button';
-import LinkButton from '@/components/atoms/LinkButton';
-import IconLabel from '@/components/atoms/IconLabel';
-import WeatherWidget from '@/components/molecules/WeatherWidget.jsx';
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { toast } from 'react-toastify'
+import ApperIcon from '@/components/ApperIcon'
+import Button from '@/components/atoms/Button'
+import LinkButton from '@/components/atoms/LinkButton'
+import IconLabel from '@/components/atoms/IconLabel'
+import WeatherWidget from '@/components/molecules/WeatherWidget.jsx'
 const DestinationCard = ({ destination, isSaved, onToggleSave }) => {
   const navigate = useNavigate();
   const [isNavigating, setIsNavigating] = useState(false);
