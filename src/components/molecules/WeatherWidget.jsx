@@ -68,26 +68,39 @@ const WeatherWidget = ({
     windSpeed
   } = weather;
 
+// Helper function to safely extract location text
+  const getLocationText = (loc) => {
+    if (!loc) return null;
+    if (typeof loc === 'string') return loc;
+    if (typeof loc === 'object') {
+      // Handle various location object formats
+      return loc.city || loc.name || loc.locality || loc.address || JSON.stringify(loc);
+    }
+    return String(loc);
+  };
+
+  const locationText = getLocationText(location);
+
   return (
     <div className={`flex items-center gap-3 p-3 bg-white/10 backdrop-blur-sm rounded-lg ${className}`}>
       <div className="flex items-center gap-2">
         <ApperIcon 
-          name={icon} 
+          name={icon || 'cloud'} 
           className="w-5 h-5 text-white" 
         />
         <div className="text-white">
           <div className="text-lg font-semibold">
-            {typeof temperature === 'number' ? `${temperature}°` : temperature}
+            {typeof temperature === 'number' ? `${temperature}°` : (temperature || 'N/A')}
           </div>
           <div className="text-xs opacity-90 capitalize">
-            {condition}
+            {condition || 'Unknown'}
           </div>
         </div>
       </div>
       
-      {location && (
+      {locationText && (
         <div className="text-xs text-white/80 ml-auto">
-          {location}
+          {locationText}
         </div>
       )}
       

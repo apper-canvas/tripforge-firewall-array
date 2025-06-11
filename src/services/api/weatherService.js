@@ -18,21 +18,22 @@ loadWeatherData();
 
 const weatherService = {
   async getWeatherByCity(cityName) {
-    await delay(300);
-    
-    if (!cityName) {
-      throw new Error('City name is required');
-    }
-    
+    try {
+      await delay(300);
+      
+      if (!cityName || typeof cityName !== 'string') {
+        throw new Error('Valid city name is required');
+      }
     // Find weather data for the city (case-insensitive)
     const weather = weatherData.find(w => 
       w.city.toLowerCase() === cityName.toLowerCase()
     );
     
-    if (!weather) {
+if (!weather) {
       // Return default weather data if city not found
       return {
         city: cityName,
+        location: cityName, // Add location property for consistency
         temperature: Math.floor(Math.random() * 30) + 5, // Random temp between 5-35°C
         condition: 'partly cloudy',
         icon: 'cloud',
@@ -41,9 +42,29 @@ const weatherService = {
       };
     }
     
-    return { ...weather };
+    // Ensure consistent structure with location property
+    const weatherResult = { ...weather };
+    if (!weatherResult.location && weatherResult.city) {
+      weatherResult.location = weatherResult.city;
+    }
+    
+    return weatherResult;
+return weatherResult;
+    } catch (error) {
+      console.error('Weather service error:', error);
+      // Return safe fallback data on error
+      return {
+        city: cityName || 'Unknown',
+        location: cityName || 'Unknown',
+        temperature: 'N/A',
+        condition: 'Unknown',
+        icon: 'cloud',
+        humidity: null,
+        windSpeed: null,
+        error: true
+      };
+    }
   },
-
   async getAll() {
     await delay(200);
     return [...weatherData];
