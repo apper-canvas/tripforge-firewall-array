@@ -18,13 +18,19 @@ const DestinationDetailsPage = () => {
   const [error, setError] = useState(null);
   const [isSaved, setIsSaved] = useState(false);
 
-  useEffect(() => {
+useEffect(() => {
     const loadDestination = async () => {
       try {
         setLoading(true);
         setError(null);
         
-        const data = await destinationService.getById(parseInt(id));
+        // Validate ID before making API call
+        const parsedId = parseInt(id);
+        if (isNaN(parsedId) || parsedId <= 0) {
+          throw new Error(`Invalid destination ID: ${id}`);
+        }
+        
+        const data = await destinationService.getById(parsedId);
         if (!data) {
           throw new Error('Destination not found');
         }
@@ -32,11 +38,12 @@ const DestinationDetailsPage = () => {
         setDestination(data);
         // Check if destination is saved (mock implementation)
         const savedDestinations = JSON.parse(localStorage.getItem('savedDestinations') || '[]');
-        setIsSaved(savedDestinations.includes(parseInt(id)));
+        setIsSaved(savedDestinations.includes(parsedId));
       } catch (err) {
         console.error('Error loading destination:', err);
-        setError(err.message || 'Failed to load destination details');
-        toast.error('Failed to load destination details');
+        const errorMessage = err.message || 'Failed to load destination details';
+        setError(errorMessage);
+        toast.error(errorMessage);
       } finally {
         setLoading(false);
       }
@@ -44,6 +51,8 @@ const DestinationDetailsPage = () => {
 
     if (id) {
       loadDestination();
+    } else {
+      setError('No destination ID provided');
     }
   }, [id]);
 

@@ -22,10 +22,27 @@ const destinationService = {
     return [...destinations];
   },
 
-  async getById(id) {
+async getById(id) {
     await delay(200);
-    const destination = destinations.find(d => d.id === id);
-    if (!destination) throw new Error('Destination not found');
+    
+    // Input validation
+    if (id === null || id === undefined) {
+      throw new Error('Destination ID is required');
+    }
+    
+    // Convert to ensure consistent comparison (handle both string and number IDs)
+    const searchId = String(id);
+    const numericId = parseInt(id);
+    
+    // Find destination with flexible ID matching
+    const destination = destinations.find(d => 
+      String(d.id) === searchId || d.id === numericId
+    );
+    
+    if (!destination) {
+      throw new Error(`Destination not found with ID: ${id}. Available destinations: ${destinations.length}`);
+    }
+    
     return { ...destination };
   },
 
