@@ -5,7 +5,7 @@ import PageHeader from '@/components/molecules/PageHeader';
 import BookingFilterAndSearchSection from '@/components/organisms/BookingFilterAndSearchSection';
 import BookingList from '@/components/organisms/BookingList';
 import Modal from '@/components/atoms/Modal';
-import QuickBookingSearchModalContent from '@/components/organisms/QuickBookingSearchModalContent';
+import FlightBookingModalContent from '@/components/organisms/FlightBookingModalContent';
 import LoadingSpinner from '@/components/atoms/LoadingSpinner';
 import ErrorMessage from '@/components/atoms/ErrorMessage';
 import bookingService from '@/services/api/bookingService';
@@ -137,9 +137,13 @@ const BookingsPage = () => {
         getBookingColor={getBookingColor}
         emptyStateProps={emptyStateProps}
       />
-
-      <Modal isOpen={showBookingForm} onClose={() => setShowBookingForm(false)}>
-        <QuickBookingSearchModalContent onCancel={() => setShowBookingForm(false)} />
+<Modal isOpen={showBookingForm} onClose={() => setShowBookingForm(false)}>
+        <FlightBookingModalContent 
+          onCancel={() => setShowBookingForm(false)}
+          onBookingComplete={(newBooking) => {
+            setBookings(prev => [newBooking, ...prev]);
+          }}
+        />
       </Modal>
     </motion.div>
   );

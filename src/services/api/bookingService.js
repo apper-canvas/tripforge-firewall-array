@@ -33,16 +33,16 @@ const bookingService = {
     await delay(250);
     return bookings.filter(booking => booking.type === type).map(booking => ({ ...booking }));
   },
-
-  async create(bookingData) {
+async create(bookingData) {
     await delay(400);
     const newBooking = {
       id: Date.now().toString(),
       ...bookingData,
       confirmationNumber: `TF${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      status: 'confirmed'
     };
-    bookings.push(newBooking);
+    bookings.unshift(newBooking); // Add to beginning for most recent first
     return { ...newBooking };
   },
 

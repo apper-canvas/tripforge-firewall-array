@@ -30,7 +30,7 @@ const BookingCard = ({ booking, onDelete, getIcon, getColor }) => {
               </Pill>
             </div>
             
-            <div className="space-y-2">
+<div className="space-y-2">
               <div className="flex items-center space-x-4 text-sm text-surface-600">
                 <IconLabel icon="Building">
                   {booking.provider}
@@ -39,6 +39,18 @@ const BookingCard = ({ booking, onDelete, getIcon, getColor }) => {
                   {booking.confirmationNumber}
                 </IconLabel>
               </div>
+              
+              {/* Flight-specific information */}
+              {booking.type === 'flight' && booking.details?.flightNumber && (
+                <div className="flex items-center space-x-4 text-sm text-surface-600">
+                  <IconLabel icon="Plane">
+                    {booking.details.flightNumber}
+                  </IconLabel>
+                  <IconLabel icon="MapPin">
+                    {booking.details.origin?.code} → {booking.details.destination?.code}
+                  </IconLabel>
+                </div>
+              )}
               
               {booking.details?.date && (
                 <IconLabel icon="Calendar">
@@ -52,9 +64,28 @@ const BookingCard = ({ booking, onDelete, getIcon, getColor }) => {
                 </IconLabel>
               )}
               
+              {/* Flight departure/arrival times */}
+              {booking.type === 'flight' && booking.details?.departure && booking.details?.arrival && (
+                <IconLabel icon="Clock">
+                  {booking.details.departure.time} - {booking.details.arrival.time}
+                  {booking.details.duration && (
+                    <>
+                      <span>•</span>
+                      <span>{booking.details.duration}</span>
+                    </>
+                  )}
+                </IconLabel>
+              )}
+              
               {booking.details?.guests && (
                 <IconLabel icon="Users">
                   {booking.details.guests} guests
+                </IconLabel>
+              )}
+              
+              {booking.details?.passengers && (
+                <IconLabel icon="Users">
+                  {booking.details.passengers} passenger{booking.details.passengers !== 1 ? 's' : ''}
                 </IconLabel>
               )}
             </div>
