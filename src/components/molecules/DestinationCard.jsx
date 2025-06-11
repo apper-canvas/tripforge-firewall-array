@@ -1,14 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { toast } from 'react-hot-toast';
 import ApperIcon from '@/components/ApperIcon';
 import Button from '@/components/atoms/Button';
 import LinkButton from '@/components/atoms/LinkButton';
 import IconLabel from '@/components/atoms/IconLabel';
 import WeatherWidget from '@/components/molecules/WeatherWidget.jsx';
 const DestinationCard = ({ destination, isSaved, onToggleSave }) => {
-  const handleViewDetails = () => {
-    // Handle view details functionality
-    console.log('View details for:', destination.id);
+  const navigate = useNavigate();
+  const [isNavigating, setIsNavigating] = useState(false);
+
+  const handleViewDetails = async () => {
+    try {
+      setIsNavigating(true);
+      
+      // Add slight delay to show loading state
+      await new Promise(resolve => setTimeout(resolve, 200));
+      
+      // Navigate to destination details page
+      navigate(`/destination/${destination.id}`);
+    } catch (error) {
+      console.error('Navigation error:', error);
+      toast.error('Failed to navigate to destination details');
+      setIsNavigating(false);
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    // Handle keyboard navigation for accessibility
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      handleViewDetails();
+    }
   };
 
   return (
@@ -19,7 +43,7 @@ const DestinationCard = ({ destination, isSaved, onToggleSave }) => {
       <div className="relative h-56">
         <img
           src={destination.imageUrl}
-          alt={destination.city}
+          alt={`${destination.city}, ${destination.country}`}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
@@ -34,6 +58,7 @@ const DestinationCard = ({ destination, isSaved, onToggleSave }) => {
               ? 'bg-accent text-white'
               : 'bg-white/20 text-white hover:bg-white/30'
           }`}
+          aria-label={isSaved ? `Remove ${destination.city} from saved destinations` : `Save ${destination.city} to favorites`}
         >
           <ApperIcon name="Heart" size={16} />
         </Button>
@@ -60,11 +85,26 @@ const DestinationCard = ({ destination, isSaved, onToggleSave }) => {
           <div className="flex space-x-2">
             <Button 
               onClick={handleViewDetails}
-              className="flex-1 px-3 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+              onKeyDown={handleKeyDown}
+              disabled={isNavigating}
+              className="flex-1 px-3 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+              aria-label={`View details for ${destination.city}, ${destination.country}`}
+              role="button"
+              tabIndex={0}
             >
-              View Details
+              {isNavigating ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  Loading...
+                </>
+              ) : (
+                'View Details'
+              )}
             </Button>
-            <Button className="px-3 py-2 bg-surface-100 text-surface-700 rounded-lg text-sm font-medium hover:bg-surface-200 transition-colors">
+            <Button 
+              className="px-3 py-2 bg-surface-100 text-surface-700 rounded-lg text-sm font-medium hover:bg-surface-200 transition-colors"
+              aria-label={`Add ${destination.city} to trip planner`}
+            >
               <ApperIcon name="Plus" size={16} />
             </Button>
           </div>
