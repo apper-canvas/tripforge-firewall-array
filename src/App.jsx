@@ -2,13 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { AnimatePresence } from 'framer-motion';
 import Layout from './Layout';
-import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
-import PlanTrip from './pages/PlanTrip';
-import Explore from './pages/Explore';
-import Budget from './pages/Budget';
-import Bookings from './pages/Bookings';
-import NotFound from './pages/NotFound';
+import { HomePage, DashboardPage, PlanTripPage, ExplorePage, BudgetPage, BookingsPage, NotFoundPage } from '@/components/pages';
 
 function App() {
   return (
@@ -17,13 +11,13 @@ function App() {
         <AnimatePresence mode="wait">
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="plan-trip" element={<PlanTrip />} />
-              <Route path="explore" element={<Explore />} />
-              <Route path="budget" element={<Budget />} />
-              <Route path="bookings" element={<Bookings />} />
-              <Route path="*" element={<NotFound />} />
+<Route index element={<HomePage />} />
+              <Route path="dashboard" element={<DashboardPage />} />
+              <Route path="plan-trip" element={<PlanTripPage />} />
+              <Route path="explore" element={<ExplorePage />} />
+              <Route path="budget" element={<BudgetPage />} />
+              <Route path="bookings" element={<BookingsPage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </AnimatePresence>

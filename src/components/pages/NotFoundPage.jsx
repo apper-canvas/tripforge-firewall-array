@@ -1,8 +1,9 @@
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import ApperIcon from '../components/ApperIcon';
+import ApperIcon from '@/components/ApperIcon';
+import LinkButton from '@/components/atoms/LinkButton';
 
-const NotFound = () => {
+const NotFoundPage = () => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -25,16 +26,18 @@ const NotFound = () => {
         <p className="text-surface-500">
           Let's get you back on track to your next adventure.
         </p>
-        <Link
+        <LinkButton
           to="/"
-          className="mt-8 inline-flex items-center space-x-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-blue-700 transition-all hover:scale-105"
+          icon="Home"
+          type="primary"
+          className="mt-8 inline-flex px-6 py-3"
+          iconSize={20}
         >
-          <ApperIcon name="Home" size={20} />
-          <span>Back to Dashboard</span>
-        </Link>
+          Back to Dashboard
+        </LinkButton>
       </div>
     </motion.div>
   );
 };
 
-export default NotFound;
+export default NotFoundPage;
