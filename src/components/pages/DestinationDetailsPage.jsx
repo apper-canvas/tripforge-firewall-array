@@ -24,10 +24,15 @@ useEffect(() => {
         setLoading(true);
         setError(null);
         
+        // Handle the case where URL parameter is literal ":id" or invalid
+        if (!id || id === ':id' || id.includes(':')) {
+          throw new Error('Invalid or missing destination ID in URL. Please navigate from the explore page.');
+        }
+        
         // Validate ID before making API call
         const parsedId = parseInt(id);
         if (isNaN(parsedId) || parsedId <= 0) {
-          throw new Error(`Invalid destination ID: ${id}`);
+          throw new Error(`Invalid destination ID format: "${id}". Expected a valid number.`);
         }
         
         const data = await destinationService.getById(parsedId);
@@ -44,17 +49,29 @@ useEffect(() => {
         const errorMessage = err.message || 'Failed to load destination details';
         setError(errorMessage);
         toast.error(errorMessage);
+        
+        // If it's a parameter issue, redirect to explore after a delay
+        if (err.message.includes('Invalid or missing destination ID') || err.message.includes('Invalid destination ID format')) {
+          setTimeout(() => {
+            navigate('/explore');
+          }, 3000);
+        }
       } finally {
         setLoading(false);
       }
     };
 
-    if (id) {
+    // Only proceed if we have a valid-looking ID
+    if (id && id !== ':id' && !id.includes(':')) {
       loadDestination();
     } else {
-      setError('No destination ID provided');
+      setError('No valid destination ID provided. Redirecting to explore page...');
+      setLoading(false);
+      setTimeout(() => {
+        navigate('/explore');
+      }, 2000);
     }
-  }, [id]);
+  }, [id, navigate]);
 
   const handleToggleSave = async () => {
     try {

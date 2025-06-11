@@ -1,12 +1,11 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import { AnimatePresence } from 'framer-motion';
-import Layout from './Layout';
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import { AnimatePresence } from 'framer-motion'
+import Layout from './Layout'
 import { HomePage, DashboardPage, PlanTripPage, ExplorePage, BudgetPage, BookingsPage, DestinationDetailsPage, NotFoundPage } from '@/components/pages'
 import 'react-toastify/dist/ReactToastify.css'
 
-// Error Boundary to catch object rendering errors
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -18,21 +17,19 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('React Error Boundary caught an error:', error, errorInfo);
+    console.error('Error caught by boundary:', error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
-          <div className="text-center p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Something went wrong</h2>
-            <p className="text-gray-600 mb-4">
-              {this.state.error?.message || 'An unexpected error occurred'}
-            </p>
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Something went wrong</h1>
+            <p className="text-gray-600 mb-4">An unexpected error occurred. Please refresh the page.</p>
             <button 
               onClick={() => window.location.reload()} 
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
             >
               Refresh Page
             </button>
@@ -40,10 +37,10 @@ class ErrorBoundary extends React.Component {
         </div>
       );
     }
+
     return this.props.children;
   }
 }
-
 function App() {
   return (
     <ErrorBoundary>
