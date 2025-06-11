@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ProgressBar from '@/components/atoms/ProgressBar';
 import LinkButton from '@/components/atoms/LinkButton';
-
+import ApperIcon from '@/components/ApperIcon';
 const DashboardBudgetSection = ({ totalBudget, totalExpenses }) => {
   const budgetUsed = totalBudget > 0 ? (totalExpenses / totalBudget) * 100 : 0;
 
