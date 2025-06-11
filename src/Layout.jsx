@@ -6,7 +6,12 @@ import { routeArray } from './config/routes';
 
 const Layout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
+const location = useLocation();
+  
+  // Defensive rendering - extract only needed properties from location object
+  const currentPath = location?.pathname || '/';
+  const locationSearch = location?.search || '';
+  const locationHash = location?.hash || '';
 
   const sidebarItems = routeArray.filter(route => route.id !== 'home');
 
