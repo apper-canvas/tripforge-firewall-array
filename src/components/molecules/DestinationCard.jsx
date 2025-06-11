@@ -4,7 +4,7 @@ import ApperIcon from '@/components/ApperIcon';
 import Button from '@/components/atoms/Button';
 import LinkButton from '@/components/atoms/LinkButton';
 import IconLabel from '@/components/atoms/IconLabel';
-import WeatherWidget from '@/components/molecules/WeatherWidget';
+import WeatherWidget from '@/components/molecules/WeatherWidget.jsx';
 const DestinationCard = ({ destination, isSaved, onToggleSave }) => {
   return (
     <motion.div
