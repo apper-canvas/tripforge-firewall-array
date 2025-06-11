@@ -6,6 +6,11 @@ import LinkButton from '@/components/atoms/LinkButton';
 import IconLabel from '@/components/atoms/IconLabel';
 import WeatherWidget from '@/components/molecules/WeatherWidget.jsx';
 const DestinationCard = ({ destination, isSaved, onToggleSave }) => {
+  const handleViewDetails = () => {
+    // Handle view details functionality
+    console.log('View details for:', destination.id);
+  };
+
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
@@ -44,16 +49,19 @@ const DestinationCard = ({ destination, isSaved, onToggleSave }) => {
             {destination.rating} • {destination.reviews} reviews
           </IconLabel>
           
-<IconLabel icon="MapPin" className="text-surface-500" textClassName="text-sm text-surface-600">
+          <IconLabel icon="MapPin" className="text-surface-500" textClassName="text-sm text-surface-600">
             {destination.attractions?.length || 0} attractions
           </IconLabel>
         </div>
         
-<WeatherWidget cityName={destination.city} />
+        <WeatherWidget cityName={destination.city} />
         
         <div className="pt-4 border-t border-surface-100 mt-4">
           <div className="flex space-x-2">
-            <Button className="flex-1 px-3 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
+            <Button 
+              onClick={handleViewDetails}
+              className="flex-1 px-3 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+            >
               View Details
             </Button>
             <Button className="px-3 py-2 bg-surface-100 text-surface-700 rounded-lg text-sm font-medium hover:bg-surface-200 transition-colors">

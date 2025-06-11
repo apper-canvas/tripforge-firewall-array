@@ -4,8 +4,15 @@ import { format } from 'date-fns';
 import ApperIcon from '@/components/ApperIcon';
 import Button from '@/components/atoms/Button';
 import IconLabel from '@/components/atoms/IconLabel';
+import { useNavigate } from 'react-router-dom';
 
 const TripCard = ({ trip, onDelete }) => {
+  const navigate = useNavigate();
+  
+  const handleViewDetails = () => {
+    navigate(`/trips/${trip.id}`);
+  };
+
   const renderActions = (tripId) => (
     <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-surface-200 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
       <Button className="w-full px-4 py-2 text-left text-sm text-surface-700 hover:bg-surface-50 flex items-center space-x-2 bg-transparent" onClick={() => console.log('Edit clicked')}>
@@ -56,9 +63,12 @@ const TripCard = ({ trip, onDelete }) => {
           {trip.currency}
         </IconLabel>
         
-        <div className="pt-4 border-t border-surface-100">
+<div className="pt-4 border-t border-surface-100">
           <div className="flex space-x-2">
-            <Button className="flex-1 px-3 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
+            <Button 
+              onClick={handleViewDetails}
+              className="flex-1 px-3 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+            >
               View Details
             </Button>
             <Button className="px-3 py-2 bg-surface-100 text-surface-700 rounded-lg text-sm font-medium hover:bg-surface-200 transition-colors">
