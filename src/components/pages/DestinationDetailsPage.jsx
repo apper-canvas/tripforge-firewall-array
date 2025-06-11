@@ -275,11 +275,42 @@ useEffect(() => {
 
                 <WeatherWidget cityName={destination.city} />
 
-                <div className="space-y-3">
-                  <Button className="w-full px-4 py-3 bg-primary text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+<div className="space-y-3">
+                  <Button 
+                    onClick={() => {
+                      navigate('/plan-trip', { 
+                        state: { 
+                          selectedDestination: {
+                            id: destination.id,
+                            city: destination.city,
+                            country: destination.country,
+                            imageUrl: destination.imageUrl,
+                            rating: destination.rating
+                          }
+                        }
+                      });
+                      toast.info(`Starting trip planning for ${destination.city}`);
+                    }}
+                    className="w-full px-4 py-3 bg-primary text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  >
                     Plan Trip Here
                   </Button>
-                  <Button className="w-full px-4 py-3 bg-surface-100 text-surface-700 rounded-lg hover:bg-surface-200 transition-colors font-medium">
+                  <Button 
+                    onClick={() => {
+                      const query = `${destination.city}, ${destination.country}`;
+                      const fallbackLat = destination.coordinates?.lat || 0;
+                      const fallbackLng = destination.coordinates?.lng || 0;
+                      
+                      // Use coordinates if available, otherwise search by name
+                      const mapUrl = destination.coordinates 
+                        ? `https://www.google.com/maps/@${fallbackLat},${fallbackLng},14z`
+                        : `https://www.google.com/maps/search/${encodeURIComponent(query)}`;
+                      
+                      window.open(mapUrl, '_blank', 'noopener,noreferrer');
+                      toast.success(`Opening ${destination.city} on map`);
+                    }}
+                    className="w-full px-4 py-3 bg-surface-100 text-surface-700 rounded-lg hover:bg-surface-200 transition-colors font-medium"
+                  >
                     View on Map
                   </Button>
                 </div>
