@@ -9,9 +9,18 @@ const Layout = () => {
 const location = useLocation();
   
   // Defensive rendering - extract only needed properties from location object
-  const currentPath = location?.pathname || '/';
-  const locationSearch = location?.search || '';
-  const locationHash = location?.hash || '';
+  // Ensure all values are primitive strings to prevent React child rendering errors
+  const currentPath = String(location?.pathname || '/');
+  const locationSearch = String(location?.search || '');
+  const locationHash = String(location?.hash || '');
+  
+  // Safe location state for any debugging/display needs
+  const safeLocationDisplay = location ? {
+    pathname: String(location.pathname || '/'),
+    search: String(location.search || ''),
+    hash: String(location.hash || ''),
+    key: String(location.key || '')
+  } : null;
 
   const sidebarItems = routeArray.filter(route => route.id !== 'home');
 
