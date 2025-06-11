@@ -1,0 +1,101 @@
+[
+  {
+    "id": "1",
+    "city": "Tokyo",
+    "country": "Japan",
+    "description": "A vibrant metropolis blending ultra-modern technology with traditional culture, featuring ancient temples, world-class cuisine, and unique neighborhoods each with their own character.",
+    "imageUrl": "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&h=600&fit=crop&crop=entropy&auto=format",
+    "category": "cities",
+    "rating": 4.8,
+    "reviews": 15420,
+    "attractions": ["Senso-ji Temple", "Tokyo Skytree", "Shibuya Crossing", "Meiji Shrine", "Tsukiji Market"]
+  },
+  {
+    "id": "2",
+    "city": "Santorini",
+    "country": "Greece", 
+    "description": "A stunning volcanic island famous for its dramatic sunsets, whitewashed buildings with blue domes, crystal-clear waters, and romantic atmosphere perfect for couples.",
+    "imageUrl": "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=800&h=600&fit=crop&crop=entropy&auto=format",
+    "category": "beaches",
+    "rating": 4.9,
+    "reviews": 8935,
+    "attractions": ["Oia Village", "Red Beach", "Akrotiri Archaeological Site", "Fira Town", "Wine Tasting Tours"]
+  },
+  {
+    "id": "3",
+    "city": "Banff",
+    "country": "Canada",
+    "description": "A breathtaking mountain town in the Canadian Rockies offering pristine wilderness, turquoise lakes, snow-capped peaks, and endless outdoor adventures year-round.",
+    "imageUrl": "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?w=800&h=600&fit=crop&crop=entropy&auto=format",
+    "category": "mountains",
+    "rating": 4.7,
+    "reviews": 12680,
+    "attractions": ["Lake Louise", "Moraine Lake", "Banff Gondola", "Johnston Canyon", "Bow River"]
+  },
+  {
+    "id": "4", 
+    "city": "Barcelona",
+    "country": "Spain",
+    "description": "A cosmopolitan city renowned for Gaudí's architectural masterpieces, vibrant street life, world-class museums, beautiful beaches, and exceptional culinary scene.",
+    "imageUrl": "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=800&h=600&fit=crop&crop=entropy&auto=format",
+    "category": "cities",
+    "rating": 4.6,
+    "reviews": 18750,
+    "attractions": ["Sagrada Familia", "Park Güell", "Gothic Quarter", "Casa Batlló", "La Boquería Market"]
+  },
+  {
+    "id": "5",
+    "city": "Bali", 
+    "country": "Indonesia",
+    "description": "A tropical paradise offering pristine beaches, ancient temples, lush rice terraces, vibrant culture, wellness retreats, and some of the world's best surfing spots.",
+    "imageUrl": "https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=800&h=600&fit=crop&crop=entropy&auto=format",
+    "category": "beaches",
+    "rating": 4.5,
+    "reviews": 22140,
+    "attractions": ["Uluwatu Temple", "Tegallalang Rice Terraces", "Mount Batur", "Ubud Monkey Forest", "Tanah Lot"]
+  },
+  {
+    "id": "6",
+    "city": "Machu Picchu",
+    "country": "Peru",
+    "description": "An ancient Incan citadel perched high in the Andes Mountains, offering one of the world's most iconic archaeological sites and breathtaking mountain vistas.",
+    "imageUrl": "https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=800&h=600&fit=crop&crop=entropy&auto=format", 
+    "category": "culture",
+    "rating": 4.9,
+    "reviews": 9876,
+    "attractions": ["Huayna Picchu", "Sun Gate", "Temple of the Sun", "Inca Trail", "Sacred Valley"]
+  },
+  {
+    "id": "7",
+    "city": "Reykjavik",
+    "country": "Iceland",
+    "description": "A charming Nordic capital serving as the gateway to Iceland's natural wonders including geysers, waterfalls, hot springs, and the mesmerizing Northern Lights.",
+    "imageUrl": "https://images.unsplash.com/photo-1539066812-fe20da1a5d45?w=800&h=600&fit=crop&crop=entropy&auto=format",
+    "category": "culture", 
+    "rating": 4.4,
+    "reviews": 7432,
+    "attractions": ["Blue Lagoon", "Golden Circle", "Northern Lights Tours", "Hallgrímskirkja", "Perlan Museum"]
+  },
+  {
+    "id": "8",
+    "city": "Swiss Alps",
+    "country": "Switzerland",
+    "description": "Majestic mountain ranges offering world-class skiing, hiking trails, pristine lakes, charming alpine villages, and some of Europe's most spectacular scenery.",
+    "imageUrl": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop&crop=entropy&auto=format",
+    "category": "mountains",
+    "rating": 4.8,
+    "reviews": 14250,
+    "attractions": ["Matterhorn", "Jungfraujoch", "Lake Geneva", "Zermatt", "Interlaken"]
+  },
+  {
+    "id": "9",
+    "city": "Maldives",
+    "country": "Maldives",
+    "description": "A tropical paradise of coral islands with crystal-clear turquoise waters, pristine white sand beaches, luxury overwater bungalows, and world-class diving spots.",
+    "imageUrl": "https://images.unsplash.com/photo-1551244072-5d12893278ab?w=800&h=600&fit=crop&crop=entropy&auto=format",
+    "category": "beaches",
+    "rating": 4.9,
+    "reviews": 11589,
+    "attractions": ["Overwater Bungalows", "Coral Reefs", "Whale Shark Diving", "Sunset Cruises", "Spa Resorts"]
+  }
+]

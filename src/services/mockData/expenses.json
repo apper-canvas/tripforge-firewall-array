@@ -1,0 +1,56 @@
+[
+  {
+    "id": "1",
+    "tripId": "1",
+    "category": "food",
+    "amount": 125.50,
+    "description": "Sushi dinner at Jiro's restaurant",
+    "date": "2024-03-16",
+    "createdAt": "2024-03-16T19:30:00Z"
+  },
+  {
+    "id": "2",
+    "tripId": "1", 
+    "category": "transport",
+    "amount": 85.20,
+    "description": "JR Pass day ticket and subway rides",
+    "date": "2024-03-16",
+    "createdAt": "2024-03-16T08:15:00Z"
+  },
+  {
+    "id": "3",
+    "tripId": "1",
+    "category": "activities",
+    "amount": 45.00,
+    "description": "Tokyo Skytree admission tickets",
+    "date": "2024-03-16", 
+    "createdAt": "2024-03-16T14:00:00Z"
+  },
+  {
+    "id": "4",
+    "tripId": "2",
+    "category": "accommodation",
+    "amount": 180.00,
+    "description": "Hotel room for 2 nights",
+    "date": "2024-05-10",
+    "createdAt": "2024-05-10T16:00:00Z"
+  },
+  {
+    "id": "5",
+    "tripId": "2",
+    "category": "food",
+    "amount": 95.75,
+    "description": "Tapas dinner at local restaurant",
+    "date": "2024-05-11",
+    "createdAt": "2024-05-11T20:45:00Z"
+  },
+  {
+    "id": "6",
+    "tripId": "3",
+    "category": "activities",
+    "amount": 220.00,
+    "description": "3-day yoga retreat package",
+    "date": "2024-07-21",
+    "createdAt": "2024-07-21T10:30:00Z"
+  }
+]

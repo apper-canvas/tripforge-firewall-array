@@ -1,0 +1,46 @@
+[
+  {
+    "id": "1",
+    "destination": "Tokyo, Japan",
+    "startDate": "2024-03-15",
+    "endDate": "2024-03-25",
+    "budget": 4500,
+    "currency": "USD",
+    "travelers": 2,
+    "notes": "Cherry blossom season trip with focus on traditional culture and modern attractions",
+    "createdAt": "2024-01-15T10:00:00Z"
+  },
+  {
+    "id": "2", 
+    "destination": "Barcelona, Spain",
+    "startDate": "2024-05-10",
+    "endDate": "2024-05-18",
+    "budget": 3200,
+    "currency": "EUR",
+    "travelers": 4,
+    "notes": "Family vacation focusing on architecture, beaches, and local cuisine",
+    "createdAt": "2024-02-01T14:30:00Z"
+  },
+  {
+    "id": "3",
+    "destination": "Bali, Indonesia", 
+    "startDate": "2024-07-20",
+    "endDate": "2024-08-05",
+    "budget": 2800,
+    "currency": "USD",
+    "travelers": 2,
+    "notes": "Wellness retreat with yoga, meditation, and tropical exploration",
+    "createdAt": "2024-02-20T09:15:00Z"
+  },
+  {
+    "id": "4",
+    "destination": "New York City, USA",
+    "startDate": "2024-12-01",
+    "endDate": "2024-12-07",
+    "budget": 3800,
+    "currency": "USD", 
+    "travelers": 3,
+    "notes": "Holiday season trip with Broadway shows, museums, and winter activities",
+    "createdAt": "2024-03-01T16:45:00Z"
+  }
+]

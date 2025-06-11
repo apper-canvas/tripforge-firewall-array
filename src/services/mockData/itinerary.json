@@ -1,0 +1,57 @@
+[
+  {
+    "id": "1",
+    "tripId": "1",
+    "date": "2024-03-16",
+    "time": "09:00",
+    "activity": "Senso-ji Temple Visit",
+    "location": "Asakusa, Tokyo",
+    "duration": 2,
+    "cost": 0,
+    "description": "Explore Tokyo's oldest temple and traditional shopping street"
+  },
+  {
+    "id": "2", 
+    "tripId": "1",
+    "date": "2024-03-16",
+    "time": "14:00",
+    "activity": "Tokyo Skytree Observatory",
+    "location": "Sumida, Tokyo",
+    "duration": 2,
+    "cost": 45,
+    "description": "Panoramic city views from Japan's tallest tower"
+  },
+  {
+    "id": "3",
+    "tripId": "1", 
+    "date": "2024-03-17",
+    "time": "10:00",
+    "activity": "Tsukiji Outer Market Food Tour",
+    "location": "Tsukiji, Tokyo",
+    "duration": 3,
+    "cost": 85,
+    "description": "Guided tour of famous fish market with sushi breakfast"
+  },
+  {
+    "id": "4",
+    "tripId": "2",
+    "date": "2024-05-11",
+    "time": "11:00", 
+    "activity": "Sagrada Familia Tour",
+    "location": "Barcelona, Spain",
+    "duration": 2,
+    "cost": 35,
+    "description": "Guided tour of Gaudi's masterpiece basilica"
+  },
+  {
+    "id": "5",
+    "tripId": "2",
+    "date": "2024-05-12",
+    "time": "15:00",
+    "activity": "Park Güell Visit",
+    "location": "Barcelona, Spain", 
+    "duration": 2,
+    "cost": 12,
+    "description": "Explore Gaudi's whimsical park with city views"
+  }
+]

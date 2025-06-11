@@ -1,0 +1,89 @@
+[
+  {
+    "id": "1",
+    "type": "flight",
+    "provider": "Japan Airlines",
+    "price": 1250,
+    "details": {
+      "destination": "Tokyo (NRT)",
+      "departure": "Los Angeles (LAX)",
+      "date": "2024-03-15",
+      "time": "11:30 AM",
+      "duration": "11h 45m",
+      "class": "Economy",
+      "seats": "14A, 14B"
+    },
+    "confirmationNumber": "JAL789ABC",
+    "status": "confirmed",
+    "createdAt": "2024-01-20T09:15:00Z"
+  },
+  {
+    "id": "2",
+    "type": "hotel",
+    "provider": "Park Hyatt Tokyo",
+    "price": 450,
+    "details": {
+      "destination": "Tokyo, Japan",
+      "checkIn": "2024-03-15",
+      "checkOut": "2024-03-25", 
+      "nights": 10,
+      "room": "Deluxe King Room",
+      "guests": 2
+    },
+    "confirmationNumber": "HYT456DEF",
+    "status": "confirmed",
+    "createdAt": "2024-01-25T14:30:00Z"
+  },
+  {
+    "id": "3",
+    "type": "activity",
+    "provider": "Tokyo Food Tours",
+    "price": 85,
+    "details": {
+      "destination": "Tokyo, Japan",
+      "date": "2024-03-17",
+      "time": "10:00 AM",
+      "duration": "3 hours",
+      "activity": "Tsukiji Market Food Tour",
+      "guests": 2
+    },
+    "confirmationNumber": "TFT123GHI",
+    "status": "confirmed",
+    "createdAt": "2024-02-05T11:45:00Z"
+  },
+  {
+    "id": "4",
+    "type": "flight",
+    "provider": "Vueling Airlines", 
+    "price": 320,
+    "details": {
+      "destination": "Barcelona (BCN)",
+      "departure": "London (LGW)",
+      "date": "2024-05-10",
+      "time": "7:25 AM",
+      "duration": "2h 15m",
+      "class": "Economy",
+      "seats": "12C, 12D, 12E, 12F"
+    },
+    "confirmationNumber": "VLG987JKL",
+    "status": "confirmed",
+    "createdAt": "2024-02-10T16:20:00Z"
+  },
+  {
+    "id": "5",
+    "type": "car",
+    "provider": "Hertz Car Rental",
+    "price": 180,
+    "details": {
+      "destination": "Barcelona, Spain",
+      "pickup": "2024-05-10",
+      "dropoff": "2024-05-18",
+      "days": 8,
+      "vehicle": "Compact Car",
+      "location": "Barcelona Airport"
+    },
+    "confirmationNumber": "HTZ654MNO",
+    "status": "confirmed",
+    "createdAt": "2024-02-15T10:10:00Z"
+  }
+]
