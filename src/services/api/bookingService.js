@@ -35,10 +35,16 @@ const bookingService = {
   },
 async create(bookingData) {
     await delay(400);
+    const ticketNumber = `TKT${Math.random().toString(36).substr(2, 8).toUpperCase()}`;
     const newBooking = {
       id: Date.now().toString(),
       ...bookingData,
       confirmationNumber: `TF${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
+      ticketNumber: ticketNumber,
+      ticketGenerated: bookingData.ticketGenerated || false,
+      paymentStatus: bookingData.paymentStatus || 'pending',
+      paymentId: bookingData.paymentId || null,
+      eTicketUrl: bookingData.ticketGenerated ? `/tickets/${ticketNumber}.pdf` : null,
       createdAt: new Date().toISOString(),
       status: 'confirmed'
     };
@@ -62,6 +68,24 @@ async create(bookingData) {
     
     bookings.splice(index, 1);
     return { success: true };
+  },
+
+  async generateTicket(bookingId) {
+    await delay(300);
+    const booking = bookings.find(b => b.id === bookingId);
+    if (!booking) throw new Error('Booking not found');
+    
+    const ticketData = {
+      ticketNumber: booking.ticketNumber,
+      bookingId: booking.id,
+      confirmationNumber: booking.confirmationNumber,
+      passengerName: booking.passengerDetails?.name || 'Passenger',
+      flightDetails: booking.flightDetails,
+      qrCode: `QR_${booking.ticketNumber}`,
+      generatedAt: new Date().toISOString()
+    };
+    
+    return ticketData;
   }
 };
 

@@ -6,7 +6,7 @@ import Button from '@/components/atoms/Button';
 import Pill from '@/components/atoms/Pill';
 import IconLabel from '@/components/atoms/IconLabel';
 
-const BookingCard = ({ booking, onDelete, getIcon, getColor }) => {
+const BookingCard = ({ booking, onDelete, getIcon, getColor, onViewTicket }) => {
   const bookingTypeIcon = getIcon(booking.type);
   const bookingTypeColor = getColor(booking.type);
 
@@ -97,6 +97,15 @@ const BookingCard = ({ booking, onDelete, getIcon, getColor }) => {
             ${booking.price.toLocaleString()}
           </div>
           <div className="flex items-center space-x-2">
+{booking.ticketGenerated && (
+              <Button 
+                onClick={() => onViewTicket && onViewTicket(booking)}
+                className="p-2 text-surface-400 hover:text-surface-600 transition-colors bg-transparent"
+                title="View E-Ticket"
+              >
+                <ApperIcon name="FileText" size={16} />
+              </Button>
+            )}
             <Button className="p-2 text-surface-400 hover:text-surface-600 transition-colors bg-transparent">
               <ApperIcon name="Download" size={16} />
             </Button>

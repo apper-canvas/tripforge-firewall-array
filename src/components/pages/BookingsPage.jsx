@@ -11,13 +11,14 @@ import ErrorMessage from '@/components/atoms/ErrorMessage';
 import bookingService from '@/services/api/bookingService';
 
 const BookingsPage = () => {
-  const [bookings, setBookings] = useState([]);
+const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all');
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-
+  const [showTicketViewer, setShowTicketViewer] = useState(false);
+  const [selectedTicket, setSelectedTicket] = useState(null);
   useEffect(() => {
     const loadBookings = async () => {
       setLoading(true);
@@ -45,11 +46,21 @@ const BookingsPage = () => {
     } catch (err) {
       toast.error('Failed to cancel booking');
     }
+};
+
+  const handleViewTicket = async (booking) => {
+    try {
+      const ticketData = await bookingService.generateTicket(booking.id);
+      setSelectedTicket(ticketData);
+      setShowTicketViewer(true);
+    } catch (error) {
+      toast.error('Failed to load ticket');
+      console.error('Ticket loading error:', error);
+    }
   };
 
   const getFilteredBookings = () => {
     let filtered = bookings;
-    
     if (filter !== 'all') {
       filtered = filtered.filter(booking => booking.type === filter);
     }
@@ -130,9 +141,10 @@ const BookingsPage = () => {
         onFilterChange={setFilter}
       />
 
-      <BookingList
+<BookingList
         bookings={filteredBookings}
         onDeleteBooking={handleDeleteBooking}
+        onViewTicket={handleViewTicket}
         getBookingIcon={getBookingIcon}
         getBookingColor={getBookingColor}
         emptyStateProps={emptyStateProps}
@@ -144,6 +156,69 @@ const BookingsPage = () => {
             setBookings(prev => [newBooking, ...prev]);
           }}
         />
+      </Modal>
+
+      <Modal isOpen={showTicketViewer} onClose={() => setShowTicketViewer(false)}>
+        {selectedTicket && (
+          <div className="w-full max-w-2xl">
+            <div className="bg-white rounded-lg p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-semibold text-surface-900">E-Ticket</h3>
+                <Button
+                  variant="secondary"
+                  onClick={() => setShowTicketViewer(false)}
+                  className="p-2"
+                >
+                  <ApperIcon name="X" size={20} />
+                </Button>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="text-center border-b pb-4">
+                  <h4 className="text-lg font-medium text-surface-900">
+                    Ticket Number: {selectedTicket.ticketNumber}
+                  </h4>
+                  <p className="text-surface-600">
+                    Confirmation: {selectedTicket.confirmationNumber}
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium text-surface-600">Passenger</label>
+                    <p className="text-surface-900">{selectedTicket.passengerName}</p>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-surface-600">Generated</label>
+                    <p className="text-surface-900">
+                      {new Date(selectedTicket.generatedAt).toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="text-center pt-4">
+                  <div className="bg-surface-100 rounded-lg p-4">
+                    <ApperIcon name="QrCode" size={64} className="mx-auto text-surface-600" />
+                    <p className="text-sm text-surface-600 mt-2">
+                      QR Code: {selectedTicket.qrCode}
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex space-x-4 pt-4">
+                  <Button variant="secondary" className="flex-1">
+                    <ApperIcon name="Download" size={16} className="mr-2" />
+                    Download PDF
+                  </Button>
+                  <Button variant="secondary" className="flex-1">
+                    <ApperIcon name="Mail" size={16} className="mr-2" />
+                    Email Ticket
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </Modal>
     </motion.div>
   );

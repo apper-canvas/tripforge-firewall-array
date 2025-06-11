@@ -11,7 +11,7 @@ import flightService from '@/services/api/flightService';
 import bookingService from '@/services/api/bookingService';
 
 const FlightBookingModalContent = ({ onCancel, onBookingComplete }) => {
-  const [step, setStep] = useState('search'); // 'search', 'results', 'booking'
+const [step, setStep] = useState('search'); // 'search', 'results', 'payment', 'booking'
   const [loading, setLoading] = useState(false);
   const [searchParams, setSearchParams] = useState({
     origin: '',
@@ -35,7 +35,8 @@ const FlightBookingModalContent = ({ onCancel, onBookingComplete }) => {
   const [airports, setAirports] = useState([]);
   const [airlines, setAirlines] = useState([]);
   const [bookingLoading, setBookingLoading] = useState(false);
-
+  const [paymentData, setPaymentData] = useState({});
+  const [paymentLoading, setPaymentLoading] = useState(false);
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -95,27 +96,41 @@ const FlightBookingModalContent = ({ onCancel, onBookingComplete }) => {
     }
   };
 
-  const handleBookFlight = async (flight) => {
+const handleSelectFlight = (flight) => {
     setSelectedFlight(flight);
-    setBookingLoading(true);
+    setStep('payment');
+  };
+
+  const handlePaymentComplete = async (payment) => {
+    setPaymentData(payment);
+    setPaymentLoading(true);
     
     try {
-      const bookingData = await flightService.bookFlight(flight.id, {
-        passengers: searchParams.passengers
+      const bookingData = await flightService.bookFlight(selectedFlight.id, {
+        passengers: searchParams.passengers,
+        paymentInfo: payment
       });
       
-      const savedBooking = await bookingService.create(bookingData);
+      const savedBooking = await bookingService.create({
+        ...bookingData,
+        paymentStatus: 'completed',
+        paymentId: payment.paymentId,
+        ticketGenerated: true
+      });
       
       toast.success(`Flight booked successfully! Confirmation: ${savedBooking.confirmationNumber}`);
       onBookingComplete && onBookingComplete(savedBooking);
       onCancel();
     } catch (error) {
-      toast.error('Failed to book flight');
-      console.error('Booking error:', error);
+      toast.error('Payment failed. Please try again.');
+      console.error('Payment error:', error);
     } finally {
-      setBookingLoading(false);
-      setSelectedFlight(null);
+      setPaymentLoading(false);
     }
+  };
+
+  const handleBookFlight = async (flight) => {
+    handleSelectFlight(flight);
   };
 
   const renderSearchForm = () => (
@@ -315,10 +330,102 @@ const FlightBookingModalContent = ({ onCancel, onBookingComplete }) => {
               })}
               className="mt-2 text-primary-600 hover:text-primary-700 bg-transparent"
             >
-              Clear Filters
+Clear Filters
             </Button>
           </div>
         )}
+      </div>
+    </div>
+  );
+
+  const renderPaymentForm = () => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-2 mb-6">
+        <ApperIcon name="CreditCard" size={24} className="text-primary-600" />
+        <h3 className="text-lg font-semibold text-surface-900">Payment Details</h3>
+      </div>
+      
+      {selectedFlight && (
+        <div className="bg-surface-50 rounded-lg p-4 mb-6">
+          <h4 className="font-medium text-surface-900 mb-2">Flight Summary</h4>
+          <div className="flex justify-between items-center">
+            <span className="text-surface-600">
+              {selectedFlight.origin.code} → {selectedFlight.destination.code}
+            </span>
+            <span className="font-semibold text-primary-600">${selectedFlight.price}</span>
+          </div>
+        </div>
+      )}
+
+      <div className="space-y-4">
+        <div className="grid grid-cols-2 gap-4">
+          <Input
+            label="Card Number"
+            placeholder="1234 5678 9012 3456"
+            required
+          />
+          <Input
+            label="Cardholder Name"
+            placeholder="John Doe"
+            required
+          />
+        </div>
+        
+        <div className="grid grid-cols-2 gap-4">
+          <Input
+            label="Expiry Date"
+            placeholder="MM/YY"
+            required
+          />
+          <Input
+            label="CVV"
+            placeholder="123"
+            required
+          />
+        </div>
+
+        <div className="space-y-4">
+          <h4 className="font-medium text-surface-900">Billing Address</h4>
+          <Input
+            label="Street Address"
+            placeholder="123 Main St"
+            required
+          />
+          <div className="grid grid-cols-2 gap-4">
+            <Input
+              label="City"
+              placeholder="New York"
+              required
+            />
+            <Input
+              label="ZIP Code"
+              placeholder="10001"
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="flex space-x-4 pt-4">
+        <Button
+          variant="secondary"
+          onClick={() => setStep('results')}
+          className="flex-1"
+        >
+          Back to Flights
+        </Button>
+        <Button
+          onClick={() => handlePaymentComplete({
+            paymentId: `pay_${Date.now()}`,
+            amount: selectedFlight.price,
+            currency: 'USD',
+            status: 'completed'
+          })}
+          loading={paymentLoading}
+          className="flex-1"
+        >
+          Complete Payment
+        </Button>
       </div>
     </div>
   );
@@ -328,9 +435,10 @@ const FlightBookingModalContent = ({ onCancel, onBookingComplete }) => {
   }
 
   return (
-    <div className="w-full max-w-4xl max-h-[80vh] overflow-y-auto">
+<div className="w-full max-w-4xl max-h-[80vh] overflow-y-auto">
       {step === 'search' && renderSearchForm()}
       {step === 'results' && renderResults()}
+      {step === 'payment' && renderPaymentForm()}
     </div>
   );
 };
